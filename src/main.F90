@@ -9,14 +9,17 @@ implicit none
     integer :: f1(SAMPLES/2 + 1), f2(SAMPLES/2 + 1) ! vectors for frequencies 
     real(C_DOUBLE) :: x1(SAMPLES), t1(SAMPLES), x2(SAMPLES), t2(SAMPLES) ! vectors for signal and time points
     complex(C_DOUBLE_COMPLEX) :: transform1(SAMPLES/2 +1), transform2(SAMPLES/2 +1)
+    integer :: i
+    real :: r
 
     plan1 = fftw_plan_dft_r2c_1d(SAMPLES, x1, transform1, FFTW_PRESERVE_INPUT)
     plan2 = fftw_plan_dft_r2c_1d(SAMPLES, x2, transform2, FFTW_PRESERVE_INPUT)
 
     ! assign time points, frequencies, and signal values
     call make_sample_vector(t1, f1)
-    call make_sample_noisy_vector(t2, f2)
+    call make_sample_vector(t2, f2)
     call make_signal(x1, t1)
+    call make_noisy_signal(x2, t2)
 
     ! execute fft on given data
     call fftw_execute_dft_r2c(plan1, x1, transform1)

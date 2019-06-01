@@ -3,7 +3,8 @@
 module utils
     implicit none
 
-    public :: make_sample_vector, make_signal, write_plot_data_to_file
+
+    public :: make_sample_vector, make_signal, make_noisy_signal, write_plot_data_to_file
 
     private :: write_plot_data_to_file_int, write_plot_data_to_file_real
     interface write_plot_data_to_file
@@ -27,11 +28,25 @@ subroutine make_sample_vector(t, f)
 
 end subroutine
 
+
 elemental subroutine make_signal(x, t)
     real(kind = 8), intent(inout) :: x
     real(kind = 8), intent(in) :: t
 
     x = sin(2 * PI * t * 200) + 2 * sin(2 * PI * t * 400)
+end subroutine
+
+subroutine make_noisy_signal(x, t)
+    real(kind = 8), intent(inout) :: x(SAMPLES)
+    real(kind = 8), intent(in) :: t(SAMPLES)
+    real :: r
+    integer :: i 
+    call random_seed()
+
+    do i=1, SAMPLES
+        call random_number(r)
+        x(i) = sin(2 * PI * t(i) * 200) + r/1e8
+    end do
 end subroutine
 
 subroutine write_plot_data_to_file_int(path, x, y)
