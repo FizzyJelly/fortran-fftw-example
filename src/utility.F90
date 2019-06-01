@@ -4,7 +4,7 @@ module utils
     implicit none
 
 
-    public :: make_sample_vector, make_signal, make_noisy_signal, write_plot_data_to_file
+    public :: make_sample_vector, make_signal, make_noisy_signal, write_plot_data_to_file, filter_transform
 
     private :: write_plot_data_to_file_int, write_plot_data_to_file_real
     interface write_plot_data_to_file
@@ -86,6 +86,17 @@ subroutine write_plot_data_to_file_real(path, x, y)
     end do
 
     close(fd)
+end subroutine
+
+subroutine filter_transform(transform)
+    complex(kind = 8), intent(inout) :: transform(SAMPLES/2 + 1)
+    integer :: i
+
+    do i=1, size(transform)
+        if(abs(transform(i)) < 50) then
+            transform(i) = 0
+        end if
+    end do
 end subroutine
 
 end module
