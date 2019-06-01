@@ -46,7 +46,7 @@ subroutine make_noisy_signal(x, t)
     do i=1, SAMPLES
         call random_number(r) ! in range(0,1)
         r = r - 1
-        x(i) = sin(2 * PI * t(i) * 100) + r
+        x(i) = cos(2 * PI * t(i) * 100) + r
     end do
 end subroutine
 

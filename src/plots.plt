@@ -1,5 +1,5 @@
 unset grid
-set terminal png
+set terminal png size 1200,800
 set style data lines
 set key off
 
@@ -29,13 +29,16 @@ set output 'res/signal_sin_fft.png'
 set xlabel "f" font "Arial, 14”
 set ylabel "Magnitude" font "Arial, 14”
 set title "DFT of sin sum signal"
-plot "res/signal_sin_sum_fft.txt"
+set logscale y
+set yrange [0.001:]
+plot [0:512] "res/signal_sin_sum_fft.txt"
 
 set output 'res/signal_cos_fft.png'
 set xlabel "f" font "Arial, 14”
 set ylabel "Magnitude" font "Arial, 14”
 set title "DFT of noisy cos signal"
-set yrange [0:1000]
-plot "res/signal_cos_noisy_fft.txt"
+set logscale y
+set yrange [1:]
+plot [0:512] "res/signal_cos_noisy_fft.txt"
 
 
