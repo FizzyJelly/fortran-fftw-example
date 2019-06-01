@@ -1,5 +1,5 @@
 #ifndef CONFIG
 #define CONFIG
-#define SAMPLES 1024
+#define SAMPLES 8092
 #define PI 4.D0*DATAN(1.D0)
 #endif

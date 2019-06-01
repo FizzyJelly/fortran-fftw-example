@@ -44,8 +44,9 @@ subroutine make_noisy_signal(x, t)
     call random_seed()
 
     do i=1, SAMPLES
-        call random_number(r)
-        x(i) = sin(2 * PI * t(i) * 200) + r/1e8
+        call random_number(r) ! in range(0,1)
+        r = r - 1
+        x(i) = sin(2 * PI * t(i) * 100) + r
     end do
 end subroutine
 
@@ -93,7 +94,7 @@ subroutine filter_transform(transform)
     integer :: i
 
     do i=1, size(transform)
-        if(abs(transform(i)) < 50) then
+        if(abs(transform(i)) < 80) then
             transform(i) = 0
         end if
     end do
